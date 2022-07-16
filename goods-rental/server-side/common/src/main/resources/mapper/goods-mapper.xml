@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cereal.common.mapper.goods.GoodsMapper">
+    
+    
+    <select id="getGoodsList" resultType="map">
+        SELECT *
+        FROM goods
+        <where>
+            <if test="goodsName != null and goodsName != ''">
+                AND goods_name = #{goodsName}
+            </if>
+        </where>
+
+    </select>
+    
+    <insert id="insertGoods" parameterType="map">
+        INSERT INTO goods (id_no, goods_name, price, rental_fee, rental_period, goods_memo, create_date)
+        VALUES (#{idNo}, #{goodsName}, #{price}, #{rentalFee}, #{rentalPeriod}, #{goodsMemo}, #{createdDate})
+    </insert>
+    
+    <update id="updateGoods" parameterType="map">
+        UPDATE goods
+        SET id_no = #{idNo}
+        , goods_name = #{goodsName}
+        , price = #{price}
+        , rental_fee = #{rentalFee}
+        , rental_period = #{rentalPeriod}
+        , goods_memo = #{goodsMemo}
+        WHERE seq = #{seq} 
+    </update>
+    
+    <delete id="deleteGoodsList" parameterType="List">
+        DELETE 
+        FROM goods
+        WHERE seq IN 
+        <foreach collection="list" item="goods" index="index" open="(" separator="," close=")">
+            #{goods.seq}
+        </foreach>
+    </delete>
+
+</mapper>

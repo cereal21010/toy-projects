@@ -1,0 +1,8 @@
+rootProject.name = 'goods-rental'
+include 'server-side:user'
+findProject(':server-side:user')?.name = 'user'
+include 'server-side:common'
+findProject(':server-side:common')?.name = 'common'
+include 'server-side:admin'
+findProject(':server-side:admin')?.name = 'admin'
+
